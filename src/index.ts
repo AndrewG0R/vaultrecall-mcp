@@ -50,7 +50,7 @@ function errorResult(err: unknown) {
   return { content: [{ type: "text" as const, text: `Error: ${message}` }], isError: true };
 }
 
-const server = new McpServer({ name: "second-brain-mcp-server", version: "1.0.0" });
+const server = new McpServer({ name: "second-brain-mcp-server", version: "0.1.0" });
 
 server.registerTool(
   "second_brain_read_note",

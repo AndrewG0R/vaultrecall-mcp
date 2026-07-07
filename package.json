@@ -1,6 +1,6 @@
 {
   "name": "vaultrecall-mcp",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Local MCP server that turns an Obsidian vault into a semantic second brain for Claude: keyword + meaning-based search, safe read/write, tags, and an incremental embedding index. Runs 100% locally, no API keys, no data leaves your machine.",
   "type": "module",
   "main": "dist/index.js",
