@@ -1,0 +1,21 @@
+name: Test
+
+# Runs on every push and PR so a broken change is caught before it ever reaches a release tag —
+# publish.yml only runs on tag push and has no independent test gate of its own otherwise.
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - run: npm ci
+      - run: npm test

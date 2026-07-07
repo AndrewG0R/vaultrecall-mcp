@@ -1,0 +1,29 @@
+name: Publish to npm
+
+# Triggers on a version tag push (e.g. `git tag v1.2.0 && git push --tags`) so a release is just a
+# tag push — no manual `npm publish` step. package.json's version and the pushed tag should match;
+# this workflow doesn't enforce that itself, so double-check before tagging.
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # required for --provenance (npm verifies this workflow run via GitHub's OIDC token)
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      - run: npm ci
+      - run: npm test
+      - run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
